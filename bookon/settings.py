@@ -126,3 +126,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     'static'
 ]
+
+AUTH_USER_MODEL = "users.BookonUser"

@@ -6,4 +6,9 @@ body {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
+
+.navbar-toggler:focus {
+  outline: none;
+  border: none;
+}
 /*# sourceMappingURL=main.css.map */
