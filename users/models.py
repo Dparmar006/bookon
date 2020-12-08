@@ -2,8 +2,6 @@ from django.db import models
 from django.shortcuts import reverse
 from django.contrib.auth.models import AbstractUser
 
-# Other apps 'service'
-from services.models import Service
 
 # Create your models here.
 
@@ -52,12 +50,8 @@ class Customer(BookonUser):
 
 class CustomerMore(models.Model):
     district = models.CharField(max_length=50)
-
-
-class OwnerMore(models.Model):
-    service = models.ForeignKey(
-        Service, related_name="Owner of the service", on_delete=models.CASCADE
-    )
+    customer_username = models.OneToOneField(
+        Customer, on_delete=models.CASCADE)
 
 
 class Owner(BookonUser):

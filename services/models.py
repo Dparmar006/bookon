@@ -1,6 +1,9 @@
 from django.db import models
 
+from users.models import Owner
 # Create your models here.
+
+
 class Service(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField()
@@ -10,3 +13,4 @@ class Service(models.Model):
     category = models.CharField(max_length=50)
     like = models.IntegerField(blank=True, null=True)
     averageServiceTime = models.IntegerField(blank=True, null=True)
+    owner = models.ForeignKey(Owner,  on_delete=models.CASCADE, default=1)
