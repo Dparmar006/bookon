@@ -12,5 +12,7 @@ class Service(models.Model):
     address = models.CharField(max_length=150)
     category = models.CharField(max_length=50)
     like = models.IntegerField(blank=True, null=True)
-    averageServiceTime = models.IntegerField(blank=True, null=True)
+    average_service_time = models.DurationField()
+    shop_name = models.CharField(max_length=50, null=True, blank=True)
+    shop_description = models.CharField(max_length=250, null=True, blank=True)
     owner = models.ForeignKey(Owner,  on_delete=models.CASCADE, default=1)
