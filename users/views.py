@@ -1,11 +1,67 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
 
-# Create your views here.
+from django.contrib.auth import authenticate, login, logout
+# Forms
+from .forms import CustomerCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 
 
-def base(request):
-    return render(request, 'base.html')
+def home(request):
+    return render(request, 'home.html')
 
 
-def signUpPage(request):
-    return render(request, 'users/user-signup.html')
+def customerSignoutPage(request):
+
+    if logout(request):
+        messages.success(request, "Logged out !")
+    return redirect('customerSigninPage')
+
+
+def customerSignupPage(request):
+    if request.method == 'POST':
+        form = CustomerCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            user = authenticate(request, username=request.POST.get(
+                'username'), password=request.POST.get('password1'))
+            if user is not None:
+                login(request, user)
+                messages.success(request, "created")
+            else:
+
+                messages.success(request, "hey")
+    else:
+        form = CustomerCreationForm()
+
+    context = {
+        'form': form,
+
+    }
+    return render(request, 'customer/customer-signup.html', context)
+
+
+def customerSigninPage(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request=request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.info(request, "You have been logged in...")
+                return redirect('homePage')
+
+            else:
+                messages.error(request, "Username or Password is wrong !")
+        else:
+            messages.error(request, "Username or Password is wrong !")
+    else:
+        form = AuthenticationForm()
+
+    context = {
+        'form': form,
+
+    }
+    return render(request, 'customer/customer-signup.html', context)

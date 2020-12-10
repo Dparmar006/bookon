@@ -1,6 +1,6 @@
 from django.db import models
 from django.shortcuts import reverse
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager
 
 
 # Create your models here.
@@ -15,8 +15,6 @@ class BookonUser(AbstractUser):
         max_length=20, choices=Types.choices, default=Types.CUSTOMER
     )
 
-    fname = models.CharField(max_length=50)
-    lname = models.CharField(max_length=50)
     phone = models.CharField(max_length=12)
     gender = models.CharField(max_length=10)
 
@@ -24,7 +22,7 @@ class BookonUser(AbstractUser):
         return reverse("users:detail", kwargs={"username": self.username})
 
 
-class CustomerManager(models.Manager):
+class CustomerManager(UserManager):
     def get_queryset(self, *args, **kwargs):
         return (
             super().get_queryset(*args, **kwargs).filter(type=BookonUser.Types.CUSTOMER)
