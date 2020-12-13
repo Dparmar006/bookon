@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
+
 from django.contrib.auth import authenticate, login, logout
 # Forms
 from .forms import CustomerCreationForm
 from django.contrib.auth.forms import AuthenticationForm
+# models
+from .models import Owner
 
 
 def home(request):
@@ -29,7 +32,6 @@ def customerSignupPage(request):
                 login(request, user)
                 messages.success(request, "created")
             else:
-
                 messages.success(request, "hey")
     else:
         form = CustomerCreationForm()
@@ -65,3 +67,36 @@ def customerSigninPage(request):
 
     }
     return render(request, 'customer/customer-signup.html', context)
+
+
+# owner
+def ownerSignupPage(request):
+    if request.method == 'POST':
+        form = CustomerCreationForm(request.POST)
+        if form.is_valid():
+            firstname = form.cleaned_data.get('first_name')
+            lasttname = form.cleaned_data.get('last_name')
+            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
+            phone = form.cleaned_data.get('phone')
+            password1 = form.cleaned_data.get('password1')
+            password2 = form.cleaned_data.get('password2')
+            gender = form.cleaned_data.get('gender')
+
+            user = Owner.objects.create(username=username,
+                                        email=email, first_name=firstname, last_name=lasttname, phone=phone, gender=gender)
+            user.set_password(password1)
+            user.save()
+            if user is not None:
+                login(request, user)
+                messages.success(request, "Owner profile has been created !")
+                return redirect('homePage')
+            else:
+                messages.error(request, "Some error occured !")
+    else:
+        form = CustomerCreationForm()
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'owner/owner-signup.html', context)

@@ -1,7 +1,17 @@
 {% extends 'base.html' %} {% block pageTitle %}
 <h2 class="h2">Owner registration</h2>
 
-{% endblock pageTitle %} { {% block content %}
+{% if form.errors %}
+  {% for field in form %}
+    {% for error in field.errors %}
+    <div class="alert alert-danger">
+      <strong>{{ error|escape }}</strong>
+    </div>
+    {% endfor %}
+  {% endfor %}
+{% endif %}
+
+{% endblock pageTitle %} {% block content %}
 <form class="container mt-5 col-md-6" method="POST">
   {% csrf_token %} {{form.as_p}}
   <input type="submit" class="btn btn-success btn-block" />
