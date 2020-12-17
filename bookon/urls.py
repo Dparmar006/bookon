@@ -23,5 +23,6 @@ from users.views import home
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name="homePage"),
-    path('user/', include('users.urls')),
+    path('user/', include('users.urls'), name="user"),
+    path('services/', include('services.urls', namespace="service")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

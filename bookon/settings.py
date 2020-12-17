@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
+    'crispy_forms',
+
     "users",
     "services",
     "bookings"
@@ -125,3 +128,7 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = ["static"]
 
 AUTH_USER_MODEL = "users.BookonUser"
+
+LOGIN_URL = "/user/signin"
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

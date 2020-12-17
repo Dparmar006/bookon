@@ -1,0 +1,25 @@
+{% extends "base.html" %} 
+{% load crispy_forms_tags %}
+
+
+
+{% block pageTitle %}
+ <h2>register your service here</h2>
+
+{% if form.errors %}
+  {% for field in form %}
+    {% for error in field.errors %}
+    <div class="alert alert-danger">
+      <strong>{{ error|escape }}</strong>
+    </div>
+    {% endfor %}
+  {% endfor %}
+{% endif %}
+
+{% endblock pageTitle %} {% block content %}
+<form class="container mt-5 col-md-6" method="POST">
+  {% csrf_token %} {{form|crispy}}
+  <input type="submit" class="btn btn-success btn-block" />
+</form>
+
+{% endblock content %}

@@ -14,11 +14,14 @@ def home(request):
     return render(request, 'home.html')
 
 
-def customerSignoutPage(request):
-
+def signoutPage(request):
     if logout(request):
         messages.success(request, "Logged out !")
     return redirect('customerSigninPage')
+
+
+def serviceDashboard(request):
+    return render(request, 'owner/serviceDashboard.html')
 
 
 def customerSignupPage(request):
@@ -30,9 +33,11 @@ def customerSignupPage(request):
                 'username'), password=request.POST.get('password1'))
             if user is not None:
                 login(request, user)
-                messages.success(request, "created")
+                messages.success(request, "Account has been created")
+                return redirect('homePage')
             else:
-                messages.success(request, "hey")
+                messages.error(
+                    request, "Couldn't create an account, Try again.")
     else:
         form = CustomerCreationForm()
 
@@ -51,10 +56,14 @@ def customerSigninPage(request):
             password = form.cleaned_data.get("password")
             user = authenticate(request, username=username, password=password)
             if user is not None:
-                login(request, user)
-                messages.info(request, "You have been logged in...")
-                return redirect('homePage')
-
+                if user.type == 'CUSTOMER':
+                    login(request, user)
+                    messages.info(request, "You have been logged in...")
+                    return redirect('homePage')
+                else:
+                    login(request, user)
+                    messages.info(request, "You have been logged in...")
+                    return redirect('serviceDashboard')
             else:
                 messages.error(request, "Username or Password is wrong !")
         else:
@@ -90,7 +99,7 @@ def ownerSignupPage(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, "Owner profile has been created !")
-                return redirect('homePage')
+                return redirect('serviceDashboard')
             else:
                 messages.error(request, "Some error occured !")
     else:
