@@ -2,6 +2,7 @@
 # utilities
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView
 # forms
 from .forms import serviceRegistratingForm
@@ -22,11 +23,11 @@ def serviceRegistration(request):
     return render(request, 'service/serviceRegistration.html', context)
 
 
-class ServiceListingView(ListView):
+class ServiceListingView(LoginRequiredMixin,  ListView):
     model = Service
     template_name = 'service/listServices.html'
 
 
-class ServiceDetail(DetailView):
+class ServiceDetail(LoginRequiredMixin, DetailView):
     model = Service
     template_name = 'service/detailService.html'

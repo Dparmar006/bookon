@@ -15,10 +15,10 @@ class Service(models.Model):
     like = models.IntegerField(blank=True, null=True)
     average_service_time = models.DurationField()
     owner = models.ForeignKey(Owner,  on_delete=models.CASCADE, default=1)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("service:detailService", kwargs={"slug": self.slug})
+        return reverse("services:detailService", kwargs={"slug": self.slug})
