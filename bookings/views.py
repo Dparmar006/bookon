@@ -17,4 +17,4 @@ class BookingsListView(ListView):
             Customer, username=self.request.user.get_username())
 
         print(self.customer)
-        return [Booking.objects.get(customer_name=self.customer)]
+        return [Booking.objects.filter(customer_name=self.customer)]

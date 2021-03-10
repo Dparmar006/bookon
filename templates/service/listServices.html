@@ -1,27 +1,27 @@
-{% extends "base.html" %} 
-{% load crispy_forms_tags %}
+{% extends "base.html" %} {% load crispy_forms_tags %} {% block pageTitle %}
+<h2>All services</h2>
+{% endblock pageTitle %} {% block content %} 
 
-
-
-{% block pageTitle %}
- <h2>Explore services</h2>
-{% endblock pageTitle %} 
-
-{% block content %}
+<a href= {% url 'services:serviceRegistration' %}>Add service </a>
 <div class="container mt-5 col-md-8">
-    <div class="row">
-        {% for service in object_list %}
-        <div class="col-sm-6 mb-4">
-            <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">{{service.title}} <p class="muted">{{service.price}}</p></h5>
-                <p class="card-text">{{service.description}}</p>
-                <a href="#" class="btn btn-primary">Book</a>
-                <a href="{{ service.get_absolute_url }}" class="btn btn-secondary">Details</a>
-            </div>
-            </div>
+  <div class="row">
+    {% for service in object_list %}
+    <div class="col-sm-6 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">
+            {{service.title}}
+            <p class="muted">{{service.price}}</p>
+          </h5>
+          <p class="card-text">{{service.description}}</p>
+          <a href="#" class="btn btn-primary">Book</a>
+          <a href="{{ service.get_absolute_url }}" class="btn btn-secondary"
+            >Details</a
+          >
         </div>
-        {% endfor %}
+      </div>
     </div>
+    {% endfor %}
+  </div>
 </div>
 {% endblock content %}
