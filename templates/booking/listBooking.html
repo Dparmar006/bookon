@@ -10,6 +10,7 @@
 {% block content %}
 <div class="container mt-5 col-md-8">
     <div class="row">
+    {% if object_list %}
         {% for booking in object_list %}
         <div class="col-sm-6 mb-4">
             <div class="card">
@@ -18,13 +19,15 @@
                     <p class="muted"> You requested at : {{booking.service_name.created_at}}</p>
                     <p class="card-text">{{booking.service_name.description}}</p>
                     <p class="card-text">{{booking.service_name.price}}</p>
-                    <a href="#" class="btn btn-danger">Cancel</a>
+                    <a href='/bookings/cancel/{{booking.service_name.slug}}/' class="btn btn-danger">Cancel</a>
                     <a href="{{ booking.service_name.get_absolute_url }}" class="btn btn-secondary">Details</a>
                 </div>
             </div>
         </div>
         {% endfor %}
-        
+     {% else %} 
+        <h2>Nothing here, Book service from all services </h2>
+     {% endif %}    
     </div>
 </div>
 {% endblock content %}
