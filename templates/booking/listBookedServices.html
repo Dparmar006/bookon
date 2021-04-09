@@ -14,17 +14,15 @@
         <div class="col-sm-6 mb-4">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-title">{{ booking.service_name.title }} </h3>
-                    <p class="muted"> You requested at : {{booking.service_name.created_at}}</p>
+                    <h3 class="card-title">{{booking.service_name.title}} </h3>
+                    <p class="muted"> You requested at : {{booking.created_at}}</p>
                     <p class="card-text">{{booking.service_name.description}}</p>
-                    <p class="card-text">{{booking.service_name.price}}</p>
                     <a href="#" class="btn btn-danger">Cancel</a>
-                    <a href="{{ booking.get_absolute_url }}" class="btn btn-secondary">Details</a>
+                    <a href="{{ service.get_absolute_url }}" class="btn btn-secondary">Details</a>
                 </div>
             </div>
         </div>
         {% endfor %}
-        
     </div>
 </div>
 {% endblock content %}

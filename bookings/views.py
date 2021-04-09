@@ -12,9 +12,9 @@ class BookingsListView(ListView):
     template_name = 'booking/listBooking.html'
 
     def get_queryset(self):
-
         self.customer = get_object_or_404(
             Customer, username=self.request.user.get_username())
 
-        print(self.customer)
-        return [Booking.objects.filter(customer_name=self.customer)]
+        print(Booking.objects.filter(customer_name=self.customer))
+
+        return Booking.objects.filter(customer_name=self.customer)
