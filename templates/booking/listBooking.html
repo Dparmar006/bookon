@@ -19,7 +19,7 @@
                     <p class="card-text">{{booking.service_name.description}}</p>
                     <p class="card-text">{{booking.service_name.price}}</p>
                     <a href="#" class="btn btn-danger">Cancel</a>
-                    <a href="{{ booking.get_absolute_url }}" class="btn btn-secondary">Details</a>
+                    <a href="{{ booking.service_name.get_absolute_url }}" class="btn btn-secondary">Details</a>
                 </div>
             </div>
         </div>

@@ -14,7 +14,7 @@
             <p class="muted">{{service.price}}</p>
           </h5>
           <p class="card-text">{{service.description}}</p>
-          <a href="#" class="btn btn-primary">Book</a>
+          <a href="/bookings/book/{{service.slug}}/" class="btn btn-primary">Book</a>
           <a href="{{ service.get_absolute_url }}" class="btn btn-secondary"
             >Details</a
           >
