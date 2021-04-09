@@ -17,7 +17,7 @@ def home(request):
 def signoutPage(request):
     if logout(request):
         messages.success(request, "Logged out !")
-    return redirect('customerSigninPage')
+    return redirect('user:customerSigninPage')
 
 
 def serviceDashboard(request):
@@ -34,7 +34,7 @@ def customerSignupPage(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, "Account has been created")
-                return redirect('homePage')
+                return redirect('user:homePage')
             else:
                 messages.error(
                     request, "Couldn't create an account, Try again.")
@@ -59,11 +59,11 @@ def customerSigninPage(request):
                 if user.type == 'CUSTOMER':
                     login(request, user)
                     messages.info(request, "You have been logged in...")
-                    return redirect('homePage')
+                    return redirect('user:homePage')
                 else:
                     login(request, user)
                     messages.info(request, "You have been logged in...")
-                    return redirect('serviceDashboard')
+                    return redirect('user:serviceDashboard')
             else:
                 messages.error(request, "Username or Password is wrong !")
         else:
@@ -99,7 +99,7 @@ def ownerSignupPage(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, "Owner profile has been created !")
-                return redirect('serviceDashboard')
+                return redirect('user:serviceDashboard')
             else:
                 messages.error(request, "Some error occured !")
     else:
