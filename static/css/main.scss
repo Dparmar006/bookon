@@ -426,3 +426,105 @@ input[type=radio] {
         justify-content: space-between;
     }
 }
+
+// search cards, booked services
+.section__container {
+    display: flex;
+    flex-direction: column;
+}
+
+.section__left {
+    margin-bottom: 1em;
+}
+
+.search-form {
+    display: flex;
+    justify-content: space-around;
+}
+
+.search-form input button {
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.search-card {
+    min-width: 250px;
+    max-width: 300px;
+    background-color: white;
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.08);
+    padding: 1em;
+    margin-bottom: 1.5em;
+    border-radius: 16px;
+    position: relative;
+}
+
+.search-card-subtitle {
+    margin-top: 0;
+    color: grey;
+}
+
+.search-card-buttons {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    display: flex;
+    width: 6em;
+    justify-content: space-around;
+}
+
+.search-icon-button {
+    box-shadow: none;
+    background: none;
+    color: black;
+    font-size: xx-small;
+    display: grid;
+    align-items: center;
+    padding: 5px;
+    font-size: x-small;
+}
+
+.search-icon-button:hover {
+    box-shadow: none;
+}
+
+@media screen and (min-width: 550px) {
+    .section__container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .section__left {
+        width: 100%;
+        display: flex;
+        justify-content: left;
+    }
+
+    .search-form input {
+        margin: 0 2em;
+        width: 22em;
+    }
+
+    .search-form button {
+        padding: 0 3em;
+    }
+
+    .section__right {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .search-card {
+        margin: 2em;
+        box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .section__right h2 {
+        width: 100%;
+        margin: 0;
+    }
+
+    .search-form {
+        margin-top: 3em;
+    }
+}
