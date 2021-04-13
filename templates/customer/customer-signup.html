@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block pageTitle %}
-<h2 class="h2">User creation form</h2>
+
 
 {% if form.subject.errors %}
 <ol>
@@ -9,10 +9,40 @@
   <li><strong>{{ error|escape }}</strong></li>
   {% endfor %}
 </ol>
-{% endif %} {% endblock pageTitle %} { {% block content %}
-<form class="container mt-5 col-md-6" method="POST">
-  {% csrf_token %} {{form|crispy}}
-  <input type="submit" class="btn btn-success btn-block" />
-</form>
+{% endif %} {% endblock pageTitle %} {
 
+  {% block content %}
+
+<form class="form" method="POST">
+    {% csrf_token %} 
+      <div class="form__title">
+        <h2>Login</h2>
+      </div>
+      <div class="form-elemetnts">
+        {% for element in form %}
+          <div class="form__element">
+            {{element.label}}
+            {{element}}
+          </div>
+        {% endfor %}
+        <!-- <div>
+          <input type="email" placeholder="Email" class="form__element" />
+        </div>
+        <div class="form__element-container">
+          <input
+            type="password"
+            placeholder="Password"
+            class="form__element"
+          />
+        </div> -->
+        <div class="form__element-container">
+          <button type="submit" class="primary-button">
+            LOGIN
+          </button>
+          <p class="help-text">
+            Already have an account ? <a href="/signup">Sign up</a>
+          </p>
+        </div>
+      </div>
+    </form>
 {% endblock content %}

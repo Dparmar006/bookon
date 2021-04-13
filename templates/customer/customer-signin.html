@@ -14,4 +14,29 @@
   <input type="submit" class="btn btn-success btn-block" />
 </form>
 
+<form class="form">
+      <div class="form__title">
+        <h2>Login</h2>
+      </div>
+      <div class="form-elemetnts">
+        <div>
+          <input type="email" placeholder="Email" class="form__element" />
+        </div>
+        <div class="form__element-container">
+          <input
+            type="password"
+            placeholder="Password"
+            class="form__element"
+          />
+        </div>
+        <div class="form__element-container">
+          <button type="submit" class="primary-button">
+            LOGIN
+          </button>
+          <p class="help-text">
+            Already have an account ? <a href="/signup">Sign up</a>
+          </p>
+        </div>
+      </div>
+    </form>
 {% endblock content %}

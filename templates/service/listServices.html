@@ -1,27 +1,30 @@
-{% extends "base.html" %} {% load crispy_forms_tags %} {% block pageTitle %}
-<h2>All services</h2>
-{% endblock pageTitle %} {% block content %} 
 
-<a href= {% url 'services:serviceRegistration' %}>Add service </a>
-<div class="container mt-5 col-md-8">
-  <div class="row">
-    {% for service in object_list %}
-    <div class="col-sm-6 mb-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">
-            {{service.title}}
-            <p class="muted">{{service.price}}</p>
-          </h5>
-          <p class="card-text">{{service.description}}</p>
-          <a href="/bookings/book/{{service.slug}}/" class="btn btn-primary">Book</a>
-          <a href="{{ service.get_absolute_url }}" class="btn btn-secondary"
-            >Details</a
-          >
-        </div>
+{% extends "base.html" %} 
+{% load static %}
+{% load crispy_forms_tags %} 
+
+{% block content %} 
+
+ <section>
+    <h2>All services</h2>
+      <div class="section__container">
+          <div class="explore-cards">
+          {% for service in object_list %}
+            <div class="explore-card">
+              <img
+                src='{% static "images/sample.jpg" %}'
+                alt="shop photo"
+                class="shop-photo"
+              />
+              <h3 class="explore-card-title"> {{service.title}}</h3>
+              <p class="explore-card-subtitle">₹ {{service.price}}</p>
+              <p class="explore-card-description">{{service.description}}</p>
+              <a class="primary-button" href={{service.get_absolute_url}}>Details</a>
+              <a class="primary-button" href="/bookings/book/{{service.slug}}/">Book</a>
+            </div>
+          {% endfor %}
+          </div>
       </div>
-    </div>
-    {% endfor %}
-  </div>
-</div>
+    </section>
+
 {% endblock content %}
