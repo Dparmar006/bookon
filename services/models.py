@@ -15,6 +15,8 @@ class Service(models.Model):
     address = models.CharField(max_length=150)
     category = models.CharField(max_length=50)
     like = models.IntegerField(blank=True, null=True)
+    start_time = models.DurationField(blank=True, null=True)
+    end_time = models.DurationField(blank=True, null=True)
     average_service_time = models.DurationField(default=timedelta(minutes=25))
     owner = models.ForeignKey(Owner,  on_delete=models.CASCADE, default=1)
     slug = models.SlugField(unique=True)

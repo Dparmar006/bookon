@@ -9,7 +9,7 @@ from django.contrib.auth.models import AbstractUser, UserManager
 class BookonUser(AbstractUser):
     class Types(models.TextChoices):
         OWNER = "OWNER", "Owner"
-        CUSTOMER = "CUSTOMER", "Customer "
+        CUSTOMER = "CUSTOMER", "Customer"
 
     type = models.CharField(
         max_length=20, choices=Types.choices, default=Types.CUSTOMER
@@ -50,6 +50,11 @@ class CustomerMore(models.Model):
     district = models.CharField(max_length=50)
     customer_username = models.OneToOneField(
         Customer, on_delete=models.CASCADE)
+
+
+class OwnerMore(models.Model):
+    service_start_time = models.DateTimeField(blank=True, null=True)
+    service_end_time = models.DateTimeField(blank=True, null=True)
 
 
 class Owner(BookonUser):

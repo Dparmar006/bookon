@@ -4,10 +4,21 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
+import datetime
 # model
 from .models import Booking
-from users.models import Customer, BookonUser
+from users.models import Customer, BookonUser, Owner
 from services.models import Service
+
+
+def booking(service):
+    owners_all_services = Service.objects.filter(owner=service.owner)
+    owners_all_bookings = Booking.objects.filter(
+        service_name__in=owners_all_services)
+
+    print(owners_all_bookings, "fun")
+
+    return False
 
 
 class BookingsListView(ListView):
@@ -17,14 +28,15 @@ class BookingsListView(ListView):
         self.customer = get_object_or_404(
             Customer, username=self.request.user.get_username())
 
-        print(Booking.objects.filter(customer_name=self.customer))
-
         return Booking.objects.filter(customer_name=self.customer)
 
 
 def book_service(request, slug):
     service = Service.objects.get(slug=slug)
-    Booking.objects.create(service_name=service, customer_name=request.user)
+    booking(service)
+    Booking.objects.create(service_name=service,
+                           customer_name=request.user)
+
     messages.success(request, "Service booked")
     return redirect("booking:listBookings")
 
