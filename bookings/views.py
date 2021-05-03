@@ -29,8 +29,7 @@ def book_service(request, slug):
     return redirect("booking:listBookings")
 
 
-def cancel_booking(request, slug):
-    service = Service.objects.get(slug=slug)
-    Booking.objects.get(service_name=service).delete()
+def cancel_booking(request, id):
+    Booking.objects.get(id=id).delete()
     messages.error(request, "Service cancelled")
     return redirect("booking:listBookings")

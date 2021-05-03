@@ -1,36 +1,43 @@
-{% extends "base.html" %} 
-{% load crispy_forms_tags %}
-
-
-{% block content %}
+{% extends "base.html" %} {% load crispy_forms_tags %} {% block content %}
 
 <section>
-      <div class="section__container">
-       <div class="section__left">
-           <h2>My bookings</h2>
-       </div>
-        <div class="section__right">
-
- {% if object_list %}
-        {% for booking in object_list %}
-        <div class="search-card">
-            <h3 class="search-card-title">{{ booking.service_name.title }}</h3>
-            <p class="search-card-subtitle">₹ {{booking.service_name.price}}</p>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Time : {{object.price}} ({{object.average_service_time}})</li>
-                <li class="list-group-item">Address : {{booking.service_name.address}} </li>
-                <li class="list-group-item">
-                    <a href="/bookings/cancel/{{booking.service_name.slug}}/" class="btn btn-danger  content">Cancel</a>
-                    <a href="/services/{{booking.service_name.slug}}/"
-                        class="btn btn-info content float-right">Details</a>
-                </li>
-            </ul>
-        </div>
-        {% endfor %}
-  {% else %} 
-        <h2>Nothing here, Book service from all services </h2>
-     {% endif %}            
-        </div>
+  <div class="section__container">
+    <div class="section__left">
+      <h2>My bookings</h2>
+    </div>
+    <div class="section__right">
+      {% if object_list %} {% for booking in object_list %}
+      <div class="search-card">
+        <h3 class="search-card-title">{{ booking.service_name.title }}</h3>
+        <p class="search-card-subtitle">
+          ₹ {{booking.service_name.price}} / (
+          {{booking.service_name.average_service_time}} )
+        </p>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            Time : {{object.price}} ({{object.average_service_time}})
+          </li>
+          <li class="list-group-item">
+            Address : {{booking.service_name.address}}
+          </li>
+          <li class="list-group-item">
+            <a
+              href="/bookings/cancel/{{booking.id}}/"
+              class="btn btn-danger content"
+              >Cancel</a
+            >
+            <a
+              href="/services/{{booking.service_name.slug}}/"
+              class="btn btn-info content float-right"
+              >Details</a
+            >
+          </li>
+        </ul>
       </div>
-    </section>
+      {% endfor %} {% else %}
+      <h2>Nothing here, Book service from all services</h2>
+      {% endif %}
+    </div>
+  </div>
+</section>
 {% endblock content %}

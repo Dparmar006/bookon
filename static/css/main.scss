@@ -186,6 +186,11 @@ header {
 
 .nav-link {
     margin: 0 1em;
+    transition: all .2s;
+}
+
+.nav-link:hover {
+    border-bottom: 3px solid rgba(65, 54, 241, 0.4);
 }
 
 /* mobile menu */
@@ -276,6 +281,7 @@ header {
 
 .explore-card-title {
     margin-bottom: 0;
+    font-size: 1.4rem;
 }
 
 .explore-card-subtitle {
@@ -455,6 +461,10 @@ input[type=radio] {
     margin-bottom: 1.5em;
     border-radius: 16px;
     position: relative;
+}
+
+.search-card-title {
+    font-size: 1.4rem;
 }
 
 .search-card-subtitle {
