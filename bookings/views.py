@@ -11,16 +11,6 @@ from users.models import Customer, BookonUser, Owner
 from services.models import Service
 
 
-def booking(service):
-    owners_all_services = Service.objects.filter(owner=service.owner)
-    owners_all_bookings = Booking.objects.filter(
-        service_name__in=owners_all_services)
-
-    print(owners_all_bookings, "fun")
-
-    return False
-
-
 class BookingsListView(ListView):
     template_name = 'booking/listBooking.html'
 

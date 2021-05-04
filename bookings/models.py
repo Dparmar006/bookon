@@ -11,6 +11,8 @@ class Booking(models.Model):
     customer_name = models.ForeignKey(Customer, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    start_time = models.DateTimeField(blank=True, null=True)
+    end_time = models.DateTimeField(blank=True, null=True)
     # finish_at = models.DateTimeField(null=True, blank=True, default=)
 
     def __str__(self):

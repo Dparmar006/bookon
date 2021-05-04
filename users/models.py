@@ -52,11 +52,6 @@ class CustomerMore(models.Model):
         Customer, on_delete=models.CASCADE)
 
 
-class OwnerMore(models.Model):
-    service_start_time = models.DateTimeField(blank=True, null=True)
-    service_end_time = models.DateTimeField(blank=True, null=True)
-
-
 class Owner(BookonUser):
     objects = OwnerManager()
 
