@@ -8,6 +8,7 @@ from .forms import CustomerCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 # models
 from .models import Owner
+from bookings.models import Booking
 
 
 def home(request):
@@ -20,8 +21,16 @@ def signoutPage(request):
     return redirect('user:customerSigninPage')
 
 
-def serviceDashboard(request):
-    return render(request, 'owner/serviceDashboard.html')
+def owner_dashboard(request):
+    print(request.user.type)
+    if(request.user.type == "OWNER"):
+        all_bookings = Booking.objects.filter(service_name__owner=request.user)
+        print(all_bookings)
+        context = {'all_bookings': all_bookings}
+    else:
+        messages.error(request, "You can not access this page")
+        return redirect("user:homePage")
+    return render(request, 'owner/owner-dashboard.html', context)
 
 
 def customerSignupPage(request):
@@ -63,7 +72,7 @@ def customerSigninPage(request):
                 else:
                     login(request, user)
                     messages.info(request, "You have been logged in...")
-                    return redirect('user:serviceDashboard')
+                    return redirect('user:owner_dashboard')
             else:
                 messages.error(request, "Username or Password is wrong !")
         else:
@@ -99,7 +108,7 @@ def ownerSignupPage(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, "Owner profile has been created !")
-                return redirect('user:serviceDashboard')
+                return redirect('user:owner_dashboard')
             else:
                 messages.error(request, "Some error occured !")
     else:

@@ -23,7 +23,6 @@ class BookingsListView(ListView):
 
 def book_service(request, slug):
     service = Service.objects.get(slug=slug)
-    booking(service)
     Booking.objects.create(service_name=service,
                            customer_name=request.user)
 

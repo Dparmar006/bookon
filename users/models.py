@@ -29,7 +29,7 @@ class CustomerManager(UserManager):
         )
 
 
-class OwnerManager(models.Manager):
+class OwnerManager(UserManager):
     def get_queryset(self, *args, **kwargs):
         return super().get_queryset(*args, **kwargs).filter(type=BookonUser.Types.OWNER)
 

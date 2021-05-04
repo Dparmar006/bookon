@@ -16,4 +16,4 @@ class Booking(models.Model):
     # finish_at = models.DateTimeField(null=True, blank=True, default=)
 
     def __str__(self):
-        return f"{self.service_name.title} -> booked by -> {self.customer_name.first_name}"
+        return f"{self.service_name.title}  booked by  {self.customer_name.first_name}"

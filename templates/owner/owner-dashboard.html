@@ -1,0 +1,46 @@
+{% extends "base.html" %} 
+{% block content %}
+
+<section>
+  <div class="section__container">
+    <div class="section__left">
+      <h2>Orders recieved</h2>
+    </div>
+    <div class="section__right">
+      {% if all_bookings %} 
+      {% for booking in all_bookings %}
+      <div class="search-card">
+        <h3 class="search-card-title">{{ booking.service_name.title }}</h3>
+        <p class="search-card-subtitle">
+          ₹ {{booking.service_name.price}} / (
+          {{booking.service_name.average_service_time}} )
+        </p>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            Customer : {{booking.customer_name.first_name}} {{booking.customer_name.last_name}}
+          </li>
+          <li class="list-group-item">
+            Service booked at : {{booking.created_at}} 
+          </li>
+          <li class="list-group-item">
+            <a
+              href="/bookings/cancel/{{booking.id}}/"
+              class="btn btn-danger content"
+              >Cancel</a
+            >
+            <a
+              href="/services/{{booking.service_name.slug}}/"
+              class="btn btn-info content float-right"
+              >Details</a
+            >
+          </li>
+        </ul>
+      </div>
+      {% endfor %} 
+      {% else %}
+      <h2>Nothing here, Book service from all services</h2>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock content %}
