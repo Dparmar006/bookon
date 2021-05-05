@@ -70,6 +70,12 @@
             <li>
               <a class="nav-link" href={% url 'services:serviceRegistration' %}>Add service </a>
             </li>
+           {% if user.type == "OWNER"  %}
+             
+            <li>
+             <a class="nav-link" href={% url 'user:owner_dashboard' %}>Dashboard </a>
+            </li>
+            {% endif %}
             <li>
                 {% if user.is_authenticated %}
                  {% comment %} {{ user.first_name }}.  {% endcomment %}

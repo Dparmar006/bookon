@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-
+import datetime
 
 from django.contrib.auth import authenticate, login, logout
 # Forms
@@ -22,10 +22,20 @@ def signoutPage(request):
 
 
 def owner_dashboard(request):
-    print(request.user.type)
+    if request.method == 'POST':
+        booking = Booking.objects.get(id=request.POST.get('order_id'))
+        start_time = datetime.datetime.strptime(
+            request.POST.get('service_schedule_date') + " " + request.POST.get('service_schedule_time'), "%Y-%m-%d %H:%M")
+        booking.start_time = start_time
+        booking.end_time = booking.start_time + \
+            booking.service_name.average_service_time
+        booking.save()
+        messages.success(request,
+                         f"You have scheduled {booking.customer_name}'s service at {start_time}")
+        print(start_time, "post")
+    print(request.user.type, " logged in")
     if(request.user.type == "OWNER"):
         all_bookings = Booking.objects.filter(service_name__owner=request.user)
-        print(all_bookings)
         context = {'all_bookings': all_bookings}
     else:
         messages.error(request, "You can not access this page")

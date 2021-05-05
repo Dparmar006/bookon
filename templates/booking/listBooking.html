@@ -15,7 +15,12 @@
         </p>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
-            Time : {{object.price}} ({{object.average_service_time}})
+            {% if booking.start_time %}
+              Time : {{booking.start_time}} 
+            {% else %} 
+              Your service isn't being viewed / scheduled yet
+            {% endif %}
+          
           </li>
           <li class="list-group-item">
             Address : {{booking.service_name.address}}

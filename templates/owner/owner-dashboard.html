@@ -23,6 +23,18 @@
             Service booked at : {{booking.created_at}} 
           </li>
           <li class="list-group-item">
+            <form method="POST" >    
+            {% csrf_token %}          
+              <input type="date" name="service_schedule_date">
+              <input type="time" name="service_schedule_time">
+              <input type="hidden" name="order_id" value={{booking.id}} />
+              <input
+              type="submit"
+              class="btn btn-success content"
+              />
+            </form>
+          </li>
+          <li class="list-group-item">
             <a
               href="/bookings/cancel/{{booking.id}}/"
               class="btn btn-danger content"
