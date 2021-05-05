@@ -1,5 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.views.generic import ListView
+
 import datetime
 
 from django.contrib.auth import authenticate, login, logout
@@ -7,12 +9,18 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import CustomerCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 # models
-from .models import Owner
+from .models import Owner, Customer
 from bookings.models import Booking
 
 
-def home(request):
-    return render(request, 'home.html')
+class Home(ListView):
+    template_name = 'home.html'
+
+    def get_queryset(self):
+        self.customer = get_object_or_404(
+            Customer, username=self.request.user.get_username())
+
+        return Booking.objects.filter(customer_name=self.customer).order_by('start_time')
 
 
 def signoutPage(request):
@@ -35,11 +43,12 @@ def owner_dashboard(request):
         print(start_time, "post")
     print(request.user.type, " logged in")
     if(request.user.type == "OWNER"):
-        all_bookings = Booking.objects.filter(service_name__owner=request.user)
+        all_bookings = Booking.objects.filter(
+            service_name__owner=request.user).order_by('start_time')
         context = {'all_bookings': all_bookings}
     else:
         messages.error(request, "You can not access this page")
-        return redirect("user:homePage")
+        return redirect("user:home_page")
     return render(request, 'owner/owner-dashboard.html', context)
 
 
@@ -53,7 +62,7 @@ def customerSignupPage(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, "Account has been created")
-                return redirect('user:homePage')
+                return redirect('user:home_page')
             else:
                 messages.error(
                     request, "Couldn't create an account, Try again.")
@@ -77,11 +86,13 @@ def customerSigninPage(request):
             if user is not None:
                 if user.type == 'CUSTOMER':
                     login(request, user)
-                    messages.info(request, "You have been logged in...")
-                    return redirect('user:homePage')
+                    messages.info(
+                        request, f"Logged in, Welcome {user.first_name}")
+                    return redirect('user:home_page')
                 else:
                     login(request, user)
-                    messages.info(request, "You have been logged in...")
+                    messages.info(
+                        request, f"Logged in as Owner, Welcome {user.first_name}")
                     return redirect('user:owner_dashboard')
             else:
                 messages.error(request, "Username or Password is wrong !")

@@ -25,8 +25,8 @@
           <li class="list-group-item">
             <form method="POST" >    
             {% csrf_token %}          
-              <input type="date" name="service_schedule_date">
-              <input type="time" name="service_schedule_time">
+              <input type="date" name="service_schedule_date" value={{booking.start_time|date:"Y-m-d"}}>
+              <input type="time" name="service_schedule_time" value={{booking.start_time|date:"H:i"}} >
               <input type="hidden" name="order_id" value={{booking.id}} />
               <input
               type="submit"
