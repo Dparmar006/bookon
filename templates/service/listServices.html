@@ -4,12 +4,26 @@
 {% load crispy_forms_tags %} 
 
 {% block content %} 
+  <form method="get">
+    <div class="row m-5">
 
+      {% for filter_field in services_filter.form %}
+      <div class="col">
+        {{filter_field.label}}
+        {{filter_field}}
+      </div>
+      {% endfor %}
+      <div class="col">
+        <button type="submit">Search</button>
+      </div>
+    </div>
+  </form>
+  
  <section>
     <h2>All services</h2>
       <div class="section__container">
           <div class="explore-cards">
-          {% for service in object_list %}
+          {% for service in services_filter.qs %}
             <div class="explore-card">
               <img
                 src='{% static "images/sample.jpg" %}'

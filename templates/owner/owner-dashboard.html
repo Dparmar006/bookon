@@ -17,20 +17,25 @@
         </p>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
-            Customer : {{booking.customer_name.first_name}} {{booking.customer_name.last_name}}
+            Customer : {{booking.customer_name.first_name|capfirst}} {{booking.customer_name.last_name|capfirst}}
           </li>
           <li class="list-group-item">
             Service booked at : {{booking.created_at}} 
           </li>
           <li class="list-group-item">
+            Contact customer : {{booking.customer_name.phone}} <br />
+            {{booking.customer_name.email}}
+          </li>
+          <li class="list-group-item">
             <form method="POST" >    
             {% csrf_token %}          
-              <input type="date" name="service_schedule_date" value={{booking.start_time|date:"Y-m-d"}}>
-              <input type="time" name="service_schedule_time" value={{booking.start_time|date:"H:i"}} >
+              <input type="date" name="service_schedule_date" value={{booking.start_time|date:"Y-m-d"}} class="m-2">
+              <input type="time" name="service_schedule_time" value={{booking.start_time|date:"H:i"}} class="m-2">
               <input type="hidden" name="order_id" value={{booking.id}} />
               <input
               type="submit"
-              class="btn btn-success content"
+              value="Schedule"
+              class="btn btn-success content btn-sm m-2"
               />
             </form>
           </li>

@@ -9,6 +9,8 @@ from django.contrib import messages
 from .forms import serviceRegistratingForm
 # models
 from .models import Service
+# filter
+from services.filters import ServicesFilter
 
 
 def generate_slug(name):
@@ -25,9 +27,8 @@ def serviceRegistration(request):
             service_name = form.cleaned_data.get('title')
             # service = Service.objects.get()
             print(service)
-            messages.success(request, "Service added")
+            messages.success(request, f"{service_name} added")
             return redirect("services:listServices")
-
     else:
         form = serviceRegistratingForm()
     context = {'form': form}
@@ -36,6 +37,13 @@ def serviceRegistration(request):
 
 class ServiceListingView(LoginRequiredMixin,  ListView):
     model = Service
+
+    def get_context_data(self, **kwargs):
+        context = super(ServiceListingView, self).get_context_data(**kwargs)
+        context["services_filter"] = ServicesFilter(
+            self.request.GET, queryset=Service.objects.all())
+        return context
+
     template_name = 'service/listServices.html'
 
 

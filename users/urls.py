@@ -3,7 +3,7 @@ from . import views
 
 app_name = "user"
 urlpatterns = [
-    path('', views.Home.as_view(), name="home_page"),
+
     path('signup/', views.customerSignupPage, name="customerSignupPage"),
     path('ownersignup/', views.ownerSignupPage, name="ownerSignupPage"),
     path('signin/', views.customerSigninPage, name="customerSigninPage"),

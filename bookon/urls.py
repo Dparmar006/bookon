@@ -22,6 +22,7 @@ from django.conf import settings
 from users.views import Home
 
 urlpatterns = [
+    path('', Home.as_view(), name="home_page"),
     path('admin/', admin.site.urls),
 
     path('user/', include('users.urls', namespace="user")),

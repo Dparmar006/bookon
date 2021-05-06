@@ -48,7 +48,7 @@ def owner_dashboard(request):
         context = {'all_bookings': all_bookings}
     else:
         messages.error(request, "You can not access this page")
-        return redirect("user:home_page")
+        return redirect("home_page")
     return render(request, 'owner/owner-dashboard.html', context)
 
 
@@ -62,7 +62,7 @@ def customerSignupPage(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, "Account has been created")
-                return redirect('user:home_page')
+                return redirect('home_page')
             else:
                 messages.error(
                     request, "Couldn't create an account, Try again.")
@@ -88,7 +88,7 @@ def customerSigninPage(request):
                     login(request, user)
                     messages.info(
                         request, f"Logged in, Welcome {user.first_name}")
-                    return redirect('user:home_page')
+                    return redirect('home_page')
                 else:
                     login(request, user)
                     messages.info(
