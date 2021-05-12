@@ -18,7 +18,14 @@ class BookingsListView(ListView):
         self.customer = get_object_or_404(
             Customer, username=self.request.user.get_username())
 
-        return Booking.objects.filter(customer_name=self.customer)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["todays_booking"] = Booking.objects.filter(
+            customer_name=self.customer, start_time__gte=datetime.datetime.today())
+        context["object_list"] = Booking.objects.filter(
+            customer_name=self.customer)
+
+        return context
 
 
 def book_service(request, slug):

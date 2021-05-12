@@ -159,7 +159,7 @@ img {
 header {
     background-color: #ffffff;
     box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.1);
-    height: fit-content;
+    height: 3.5rem;
 }
 
 .header__container {
@@ -186,11 +186,11 @@ header {
 
 .nav-link {
     margin: 0em 1em;
-    margin: .2em 0em;
+    padding: .2em 0em;
     transition: all .2s;
 }
 
-.nav-link:hover {
+.nav-link:active {
     border-bottom: 3px solid rgba(65, 54, 241, 0.4);
 }
 

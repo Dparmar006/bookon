@@ -3,7 +3,53 @@
 <section>
   <div class="section__container">
     <div class="section__left">
-      <h2>My bookings</h2>
+      <h2>Today's bookings</h2>
+    </div>
+    {% now "SHORT_DATE_FORMAT" %}
+    <div class="section__right">
+
+      {% if todays_booking %} 
+        {% for booking in todays_booking %} 
+          <div class="search-card">
+            <h3 class="search-card-title">{{ booking.service_name.title }}</h3>
+            <p class="search-card-subtitle">
+              ₹ {{booking.service_name.price}} / (
+              {{booking.service_name.average_service_time}} )
+            </p>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                {% if booking.start_time %} Time : {{booking.start_time}} {% else %}
+                Your service isn't being viewed / scheduled yet {% endif %}
+              </li>
+              <li class="list-group-item">
+                Address : {{booking.service_name.address}}
+              </li>
+              <li class="list-group-item">
+                <a
+                  href="/bookings/cancel/{{booking.id}}/"
+                  class="btn btn-danger content"
+                  >Cancel</a
+                >
+                <a
+                  href="/services/{{booking.service_name.slug}}/"
+                  class="btn btn-info content float-right"
+                  >Details</a
+                >
+              </li>
+            </ul>
+          </div>
+        {% endfor %} 
+      {% else %}
+        <h2>No schedule found</h2>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section__container">
+    <div class="section__left">
+      <h2>All bookings</h2>
     </div>
     <div class="section__right">
       {% if object_list %} {% for booking in object_list %}
@@ -15,12 +61,8 @@
         </p>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
-            {% if booking.start_time %}
-              Time : {{booking.start_time}} 
-            {% else %} 
-              Your service isn't being viewed / scheduled yet
-            {% endif %}
-          
+            {% if booking.start_time %} Time : {{booking.start_time}} {% else %}
+            Your service isn't being viewed / scheduled yet {% endif %}
           </li>
           <li class="list-group-item">
             Address : {{booking.service_name.address}}
