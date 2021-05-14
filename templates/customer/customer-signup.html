@@ -12,37 +12,67 @@
 {% endif %} {% endblock pageTitle %} {
 
   {% block content %}
+<section>
+  <form method="post" class="form">
+    <div class="form__title">
+        <h2>Create account</h2>
+      </div>
+    {% csrf_token %}
+    <div class="form-row">
+      <div class="form-group col-md-6 mb-0">
+        <div class="form__element">
+          {{ form.username|as_crispy_field }}
+        </div>
+      </div>
+      <div class="form-group col-md-6 mb-0">
+       <div class="form__element">
+        {{ form.email|as_crispy_field }}
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6 mb-0">
+        <div class="form__element">
+          {{ form.first_name|as_crispy_field }}
+        </div>
+      </div>
+      <div class="form-group col-md-6 mb-0">
+       <div class="form__element">
+        {{ form.last_name|as_crispy_field }}
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-row">
+      <div class="form-group col-md-6 mb-0">
+        <div class="form__element">
+          {{ form.password1|as_crispy_field }}
+        </div>
+      </div>
+      <div class="form-group col-md-6 mb-0">
+        <div class="form__element">
+          {{ form.password2|as_crispy_field }}
+        </div>
+      </div>
+    </div>
+  
+    <div class="form-row">
+      <div class="form-group col-md-6 mb-0">
+        <div class="form__element">
+              {{form.gender}}
+        </div>
+      </div>
+      <div class="form-group col-md-6 mb-0">
+        <div class="form__element">
+          {{ form.phone|as_crispy_field }}
+        </div>
+      </div>
+    </div>
 
-<form class="form" method="POST">
-    {% csrf_token %} 
-      <div class="form__title">
-        <h2>Login</h2>
-      </div>
-      <div class="form-elemetnts">
-        {% for element in form %}
-          <div class="form__element">
-            {{element.label}}
-            {{element}}
-          </div>
-        {% endfor %}
-        <!-- <div>
-          <input type="email" placeholder="Email" class="form__element" />
-        </div>
-        <div class="form__element-container">
-          <input
-            type="password"
-            placeholder="Password"
-            class="form__element"
-          />
-        </div> -->
-        <div class="form__element-container">
-          <button type="submit" class="primary-button">
-            LOGIN
-          </button>
-          <p class="help-text">
-            Already have an account ? <a href="/signup">Sign up</a>
+    <button type="submit" class="btn btn-primary primary-button">Create account</button>
+     <p class="help-text">
+            Already have an account ? <a href={% url 'user:customerSigninPage' %}>Sign in</a>
           </p>
-        </div>
-      </div>
-    </form>
+  </form>
+</section>
 {% endblock content %}

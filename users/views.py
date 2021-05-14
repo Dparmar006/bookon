@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.views.generic import ListView
-
 import datetime
-
+from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 # Forms
 from .forms import CustomerCreationForm
 from django.contrib.auth.forms import AuthenticationForm
@@ -13,7 +14,7 @@ from .models import Owner, Customer
 from bookings.models import Booking
 
 
-class Home(ListView):
+class Home(LoginRequiredMixin, ListView):
     template_name = 'home.html'
 
     def get_queryset(self):
@@ -23,7 +24,7 @@ class Home(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["todays_booking"] = Booking.objects.filter(
-            customer_name=self.customer, start_time__gte=datetime.datetime.today())
+            customer_name=self.customer).filter(start_time__gte=datetime.datetime.now(tz=timezone.utc))
         context["object_list"] = Booking.objects.filter(
             customer_name=self.customer).order_by('start_time')
         return context
@@ -35,6 +36,7 @@ def signoutPage(request):
     return redirect('user:customerSigninPage')
 
 
+@login_required
 def owner_dashboard(request):
     if request.method == 'POST':
         booking = Booking.objects.get(id=request.POST.get('order_id'))
@@ -46,8 +48,6 @@ def owner_dashboard(request):
         booking.save()
         messages.success(request,
                          f"You have scheduled {booking.customer_name}'s service at {start_time}")
-        print(start_time, "post")
-    print(request.user.type, " logged in")
     if(request.user.type == "OWNER"):
         all_bookings = Booking.objects.filter(
             service_name__owner=request.user).order_by('start_time')
@@ -111,7 +111,7 @@ def customerSigninPage(request):
         'form': form,
 
     }
-    return render(request, 'customer/customer-signup.html', context)
+    return render(request, 'customer/customer-signin.html', context)
 
 
 # owner
@@ -125,7 +125,7 @@ def ownerSignupPage(request):
             email = form.cleaned_data.get('email')
             phone = form.cleaned_data.get('phone')
             password1 = form.cleaned_data.get('password1')
-            password2 = form.cleaned_data.get('password2')
+
             gender = form.cleaned_data.get('gender')
 
             user = Owner.objects.create(username=username,

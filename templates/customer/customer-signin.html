@@ -1,7 +1,7 @@
 {% extends 'base.html' %} 
 {% load crispy_forms_tags %}
 {% block pageTitle %}
-<h2 class="h2">Login</h2>
+
 {% if form.subject.errors %}
 <ol>
   {% for error in form.subject.errors %}
@@ -9,34 +9,30 @@
   {% endfor %}
 </ol>
 {% endif %} {% endblock pageTitle %} {% block content %}
-<form class="container mt-5 col-md-6" method="POST">
-  {% csrf_token %} {{form|crispy}}
-  <input type="submit" class="btn btn-success btn-block" />
-</form>
 
-<form class="form">
-      <div class="form__title">
-        <h2>Login</h2>
+<section>
+  <form method="post" class="form">
+    <div class="form__title">
+        <h2>Login to your account</h2>
       </div>
-      <div class="form-elemetnts">
-        <div>
-          <input type="email" placeholder="Email" class="form__element" />
-        </div>
-        <div class="form__element-container">
-          <input
-            type="password"
-            placeholder="Password"
-            class="form__element"
-          />
-        </div>
-        <div class="form__element-container">
-          <button type="submit" class="primary-button">
-            LOGIN
-          </button>
-          <p class="help-text">
-            Already have an account ? <a href="/signup">Sign up</a>
-          </p>
+    {% csrf_token %}
+    <div class="form-row">
+      <div class="form-group col-md-6 mb-0">
+        <div class="form__element">
+          Username : <input type="text" name="username">      
         </div>
       </div>
-    </form>
+      <div class="form-group col-md-6 mb-0">
+       <div class="form__element">
+          Password : <input type="password" name="password">
+        </div>
+      </div>
+    </div>
+    
+    <button type="submit" class="btn btn-primary primary-button">Login into your account</button>
+     <p class="help-text mt-2">
+        Don't have an account ? <a href={% url 'user:customerSignupPage' %}>Sign up</a>
+      </p>
+  </form>
+</section>
 {% endblock content %}

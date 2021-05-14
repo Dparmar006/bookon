@@ -1,3 +1,4 @@
+
 from django.db import models
 from django.shortcuts import reverse
 from django.contrib.auth.models import AbstractUser, UserManager
@@ -14,7 +15,9 @@ class BookonUser(AbstractUser):
     type = models.CharField(
         max_length=20, choices=Types.choices, default=Types.CUSTOMER
     )
-
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    email = models.EmailField()
     phone = models.CharField(max_length=12)
     gender = models.CharField(max_length=10)
 

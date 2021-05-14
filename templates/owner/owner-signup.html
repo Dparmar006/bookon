@@ -1,14 +1,78 @@
-{% extends 'base.html' %} {% load crispy_forms_tags %} {% block pageTitle %}
-<h2 class="h2">Owner registration</h2>
+{% extends 'base.html' %} 
+{% load crispy_forms_tags %} 
 
-{% if form.errors %} {% for field in form %} {% for error in field.errors %}
-<div class="alert alert-danger">
-  <strong>{{ error|escape }}</strong>
-</div>
-{% endfor %} {% endfor %} {% endif %} {% endblock pageTitle %} {% block content %}
-<form class="container mt-5 col-md-6" method="POST">
-  {% csrf_token %} {{form|crispy}}
-  <input type="submit" class="btn btn-success btn-block" />
-</form>
+{% if form.errors %} 
+  {% for field in form %} 
+    {% for error in field.errors %}
+    <div class="alert alert-danger">
+      <strong>{{ error|escape }}</strong>
+    </div>
+    {% endfor %} 
+  {% endfor %} 
+{% endif %}
+{% block content %}
 
+<section>
+  <form method="post" class="form">
+    <div class="form__title">
+        <h2>Create <span class="active"> Owner's</span> account</h2>
+      </div>
+    {% csrf_token %}
+    <div class="form-row">
+      <div class="form-group col-md-6 mb-0">
+        <div class="form__element">
+          {{ form.username|as_crispy_field }}
+        </div>
+      </div>
+      <div class="form-group col-md-6 mb-0">
+       <div class="form__element">
+        {{ form.email|as_crispy_field }}
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6 mb-0">
+        <div class="form__element">
+          {{ form.first_name|as_crispy_field }}
+        </div>
+      </div>
+      <div class="form-group col-md-6 mb-0">
+       <div class="form__element">
+        {{ form.last_name|as_crispy_field }}
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-row">
+      <div class="form-group col-md-6 mb-0">
+        <div class="form__element">
+          {{ form.password1|as_crispy_field }}
+        </div>
+      </div>
+      <div class="form-group col-md-6 mb-0">
+        <div class="form__element">
+          {{ form.password2|as_crispy_field }}
+        </div>
+      </div>
+    </div>
+  
+    <div class="form-row">
+      <div class="form-group col-md-6 mb-0">
+        <div class="form__element">
+              {{form.gender}}
+        </div>
+      </div>
+      <div class="form-group col-md-6 mb-0">
+        <div class="form__element">
+          {{ form.phone|as_crispy_field }}
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary primary-button">Create account</button>
+     <p class="help-text">
+            Already have an account ? <a href={% url 'user:customerSigninPage' %}>Sign in</a>
+          </p>
+  </form>
+</section>
 {% endblock content %}

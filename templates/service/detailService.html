@@ -26,8 +26,9 @@
 
             <ul class="list-group list-group-flush">
               <li class="list-group-item"><p class="title">Other details</p></li>
+              <li class="list-group-item">Owner : {{object.owner.get_full_name}} </li>
               <li class="list-group-item">Price : {{object.price}} ({{object.average_service_time}})</li>
-              <li class="list-group-item">{{object.address}} from - {{object.district}} by : {{object.owner.first_name}} {{object.owner.last_name}}</li>
+              <li class="list-group-item">{{object.address}} - {{object.district}} </li>
             </ul>
           <!-- <p class="content">{content}</p> -->
           <a href="/bookings/book/{{service.slug}}/" class="btn btn-primary primary-button content">Book</a>

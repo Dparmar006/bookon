@@ -27,6 +27,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="my-2 my-lg-0 navbar-nav">
+        {% if user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link" href={% url 'home_page' %}>Home <span class="sr-only">(current)</span></a>
         </li>
@@ -37,13 +38,15 @@
           <a class="nav-link" href={% url 'services:listServices' %}>All services</a>
         </li>
         <li class="nav-link">
-          {% if user.is_authenticated %}
             Welcome, {{ user.first_name }}. <a href={% url 'user:signoutPage' %}> log out ?</a>
-          {% else %}
-          Welcome, Please <a href={% url 'user:customerSigninPage' %}> log in </a> or <a href={% url 'user:customerSignupPage' %}>
-            Create new account </a>
-          {% endif %}
         </li>
+          {% else %}
+        <li>  Welcome, Please <a href={% url 'user:customerSigninPage' %}> log in </a> or <a href={% url 'user:customerSignupPage' %}>
+            Create new account </a></li>
+        <li>
+          <a href={% url 'user:ownerSignupPage' %}> Sign up as owner</a>
+        </li>
+      {% endif %}
       </ul>
     </div>
   </nav> {% endcomment %}
@@ -56,7 +59,7 @@
         </div>
         <div class="header__menu">
           <ul class="nav-links">
-            {% if user.type == "CUSTOMER"  %}
+          {% if user.is_authenticated %}
             <li>
               <a href={% url 'home_page' %} class="nav-link">
                 Home
@@ -68,26 +71,20 @@
             <li>
               <a class="nav-link" href={% url 'services:listServices' %}>All services</a>
             </li>
-            {% else %}
-            <li>
-              <a class="nav-link" href={% url 'services:listServices' %}>All services</a>
-            </li>
             <li>
               <a class="nav-link" href={% url 'services:serviceRegistration' %}>Add service </a>
             </li>
             <li>
-             <a class="nav-link" href={% url 'user:owner_dashboard' %}>Dashboard </a>
+              <a class="nav-link" href={% url 'user:owner_dashboard' %}>Dashboard </a>
             </li>
-            {% endif %}
             <li>
-                {% if user.is_authenticated %}
-                 {% comment %} {{ user.first_name }}.  {% endcomment %}
-                 <a href={% url 'user:signoutPage' %} class="nav-link" > log out ?</a>
-                {% else %}
-                <a href={% url 'user:customerSigninPage' %} class="nav-link" > log in </a> or <a href={% url 'user:customerSignupPage' %}>
-                  Signup </a>
-                {% endif %}
+              <a href={% url 'user:signoutPage' %} class="nav-link" > log out ?</a>
             </li> 
+            {% else %}
+            <li><a href={% url 'user:customerSigninPage' %} class="nav-link" >Log in</a> </li> 
+            <li><a href={% url 'user:customerSignupPage' %} class="nav-link">Signup</a></li> </li> 
+            <li><a href={% url 'user:ownerSignupPage' %} class="nav-link btn-rounded btn-link">Sign up as Owner </a></li> </li> 
+          {% endif %}
           </ul>
           <button
             class="icon-button menu-button"

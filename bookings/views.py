@@ -5,9 +5,10 @@ from django.views.generic import ListView
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 import datetime
+from django.utils import timezone
 # model
 from .models import Booking
-from users.models import Customer, BookonUser, Owner
+from users.models import Customer
 from services.models import Service
 
 
@@ -21,7 +22,7 @@ class BookingsListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["todays_booking"] = Booking.objects.filter(
-            customer_name=self.customer, start_time__gte=datetime.datetime.today())
+            customer_name=self.customer).filter(start_time__gte=datetime.datetime.now(tz=timezone.utc))
         context["object_list"] = Booking.objects.filter(
             customer_name=self.customer)
 
