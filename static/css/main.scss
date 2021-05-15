@@ -403,7 +403,8 @@ section {
     margin: 1em 0;
 }
 
-.form__element input {
+.form__element input,
+textarea {
     border: none;
     outline: none;
     padding: .8em;

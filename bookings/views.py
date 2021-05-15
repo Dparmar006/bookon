@@ -30,6 +30,8 @@ class BookingsListView(ListView):
 
 
 def book_service(request, slug):
+    if(request.user.type == "OWNER"):
+        messages.error(request, "Login with customer account to book a service")
     service = Service.objects.get(slug=slug)
     Booking.objects.create(service_name=service,
                            customer_name=request.user)
@@ -40,5 +42,8 @@ def book_service(request, slug):
 
 def cancel_booking(request, id):
     Booking.objects.get(id=id).delete()
+    if(request.user.type == "OWNER"):
+        messages.error(request, "Service has been declined")
+        return redirect("user:owner_dashboard")
     messages.error(request, "Service cancelled")
     return redirect("booking:listBookings")
