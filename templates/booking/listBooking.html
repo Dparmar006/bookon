@@ -62,7 +62,7 @@
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
             {% if booking.start_time %} Time : {{booking.start_time}} {% else %}
-            Your service isn't being viewed / scheduled yet {% endif %}
+            Your service isn't being viewed / scheduled by owner yet {% endif %}
           </li>
           <li class="list-group-item">
             Address : {{booking.service_name.address}}
@@ -82,7 +82,7 @@
         </ul>
       </div>
       {% endfor %} {% else %}
-      <h2>Nothing here, Book service from all services</h2>
+      <p class="help-text">No one has booked your service yet, You'll see here if anything happens.</p>
       {% endif %}
     </div>
   </div>

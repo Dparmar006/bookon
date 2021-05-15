@@ -134,7 +134,8 @@ def ownerSignupPage(request):
             user.save()
             if user is not None:
                 login(request, user)
-                messages.success(request, "Owner profile has been created !")
+                messages.success(
+                    request, f"Welcome {firstname}, Publish your services.")
                 return redirect('user:owner_dashboard')
             else:
                 messages.error(request, "Some error occured !")

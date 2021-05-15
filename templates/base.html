@@ -60,31 +60,30 @@
         <div class="header__menu">
           <ul class="nav-links">
           {% if user.is_authenticated %}
-            <li>
-              <a href={% url 'home_page' %} class="nav-link">
-                Home
-              </a>
-            </li>
-            <li>
+            
+              <!-- <li>
                <a class="nav-link" href={% url 'booking:listBookings' %}>My Bookings</a>
-            </li>
-            <li>
-              <a class="nav-link" href={% url 'services:listServices' %}>All services</a>
-            </li>
-            <li>
-              <a class="nav-link" href={% url 'services:serviceRegistration' %}>Add service </a>
-            </li>
-            <li>
-              <a class="nav-link" href={% url 'user:owner_dashboard' %}>Dashboard </a>
-            </li>
-            <li>
-              <a href={% url 'user:signoutPage' %} class="nav-link" > log out ?</a>
-            </li> 
+              </li>  -->
+         
+            {% if user.type == "OWNER" %}  
+              <li>
+                <a class="nav-link" href={% url 'user:owner_dashboard' %}>Dashboard</a>
+              </li>
+               <li>
+                <a class="nav-link" href={% url 'services:serviceRegistration' %}>Add service </a>
+              </li>
+            {% endif %}  
+              <li>
+                <a class="nav-link" href={% url 'services:listServices' %}>All services</a>
+              </li>
+              <li>
+                <a href={% url 'user:signoutPage' %} class="nav-link" > Log out ?</a>
+              </li> 
             {% else %}
-            <li><a href={% url 'user:customerSigninPage' %} class="nav-link" >Log in</a> </li> 
-            <li><a href={% url 'user:customerSignupPage' %} class="nav-link">Signup</a></li> </li> 
-            <li><a href={% url 'user:ownerSignupPage' %} class="nav-link btn-rounded btn-link">Sign up as Owner </a></li> </li> 
-          {% endif %}
+              <li><a href={% url 'user:customerSigninPage' %} class="nav-link" >Log in</a> </li> 
+              <li><a href={% url 'user:customerSignupPage' %} class="nav-link">Signup</a></li> </li> 
+              <li><a href={% url 'user:ownerSignupPage' %} class="nav-link btn-rounded btn-link">Sign up as Owner </a></li> </li> 
+            {% endif %}
           </ul>
           <button
             class="icon-button menu-button"

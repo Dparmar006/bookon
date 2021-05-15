@@ -34,8 +34,8 @@ def book_service(request, slug):
     Booking.objects.create(service_name=service,
                            customer_name=request.user)
 
-    messages.success(request, "Service booked")
-    return redirect("booking:listBookings")
+    messages.success(request, f"{service} has been booked")
+    return redirect("home_page")
 
 
 def cancel_booking(request, id):
