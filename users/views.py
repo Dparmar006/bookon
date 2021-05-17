@@ -30,6 +30,22 @@ class Home(LoginRequiredMixin, ListView):
         return context
 
 
+def home_page(request):
+
+    if(request.user.type == "OWNER"):
+        messages.error(request, "Redirecting to dashboard")
+        return redirect("user:owner_dashboard")
+    customer = get_object_or_404(
+        Customer, username=request.user.get_username())
+    context = {
+        "todays_booking": Booking.objects.filter(
+            customer_name=customer).filter(start_time__gte=datetime.datetime.now(tz=timezone.utc)),
+        "object_list": Booking.objects.filter(
+            customer_name=customer).order_by('start_time')
+    }
+    return render(request, 'home.html', context)
+
+
 def signoutPage(request):
     if logout(request):
         messages.success(request, "Logged out !")

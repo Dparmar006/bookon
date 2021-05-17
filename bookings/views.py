@@ -31,12 +31,14 @@ class BookingsListView(ListView):
 
 def book_service(request, slug):
     if(request.user.type == "OWNER"):
-        messages.error(request, "Login with customer account to book a service")
-    service = Service.objects.get(slug=slug)
-    Booking.objects.create(service_name=service,
-                           customer_name=request.user)
+        messages.error(
+            request, "Login with customer account to book a service")
+    else:
+        service = Service.objects.get(slug=slug)
+        Booking.objects.create(service_name=service,
+                               customer_name=request.user)
 
-    messages.success(request, f"{service} has been booked")
+        messages.success(request, f"{service} has been booked")
     return redirect("home_page")
 
 

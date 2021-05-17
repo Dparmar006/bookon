@@ -20,9 +20,11 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 from users.views import Home
+from users.views import home_page
 
 urlpatterns = [
-    path('', Home.as_view(), name="home_page"),
+    path('home/', Home.as_view(), name="home_page2"),
+    path('', home_page, name="home_page"),
     path('admin/', admin.site.urls),
 
     path('user/', include('users.urls', namespace="user")),
