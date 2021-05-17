@@ -17,16 +17,14 @@ def generate_slug(name):
     return name.lower().strip().replace(" ", "-")
 
 
-@login_required
 def serviceRegistration(request):
-    # TODO: duplication of the slug
     if request.method == 'POST':
         form = serviceRegistratingForm(request.POST)
+        print(form)
         if form.is_valid():
-            service = form.save()
+            form.save()
             service_name = form.cleaned_data.get('title')
             # service = Service.objects.get()
-            print(service)
             messages.success(request, f"{service_name} added")
             return redirect("services:listServices")
     else:

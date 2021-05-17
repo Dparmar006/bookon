@@ -17,7 +17,8 @@ class Service(models.Model):
     like = models.IntegerField(blank=True, null=True)
     open_time = models.TimeField(blank=True, null=True)
     close_time = models.TimeField(blank=True, null=True)
-    average_service_time = models.DurationField(default=timedelta(minutes=25))
+    average_service_time = models.DurationField(
+        default=timedelta(minutes=25), blank=True, null=True)
     owner = models.ForeignKey(Owner,  on_delete=models.CASCADE, default=1)
     slug = models.SlugField(unique=True)
 
